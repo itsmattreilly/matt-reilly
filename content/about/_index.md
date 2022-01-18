@@ -2,11 +2,10 @@
 title: "About"
 description: |
   A Hugo theme made for R Markdown users.
-show_header: true
-sidebar_left: false
-# Keep this! Do not edit.
+show_header: yes
+sidebar_left: no
 cascade:
-  headless: true
+  headless: yes
 ---
 
 ** index doesn't contain a body, just front matter above.

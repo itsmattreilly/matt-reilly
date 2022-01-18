@@ -14,8 +14,7 @@ layout: list-sidebar # list, list-sidebar, list-grid
 sidebar: 
   title: A Sidebar for Your Thoughts
   description: |
-    This is a fully featured blog that supports categories,
-    tags, series, and pagination. Even this sidebar offers 
+    This is a fu 
     a ton of customizations.
     
     Check out the _index.md file in the /blog folder 
