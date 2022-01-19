@@ -12,7 +12,7 @@ options(
   # to disable knitting Rmd files on save, set this option to FALSE
   blogdown.knit.on_save = FALSE,
   # full markdown mode
-  blogdown.method = "markdown"
+  blogdown.method = "markdown",
   blogdown.hugo.version = "0.92.0"
 )
 

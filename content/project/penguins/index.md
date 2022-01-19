@@ -1,69 +1,60 @@
 ---
-title: "Palmer Penguins"
-subtitle: ""
-excerpt: "Grid is the very first CSS module created specifically to solve the layout problems we’ve all been hacking our way around for as long as we’ve been making websites."
-date: 2019-07-02
-author: "Eric Anderson"
+title: "Spotify Analysis"
+subtitle: "a deepeR dive"
+excerpt: "This theme has a form-to-email feature built in, thanks to the simple Formspree integration. All you need to activate the form is a valid recipient email address saved in the form front matter."
+date: 2022-01-19
+author: "Matt Reilly"
 draft: false
 tags:
-- hugo-site
-categories:
-- Theme Features
-- R
-- package
-# layout options: single or single-sidebar
-layout: single-sidebar
+  - hugo-site
+layout: single
 links:
 - icon: door-open
   icon_pack: fas
-  name: website
-  url: https://allisonhorst.github.io/palmerpenguins/
+  name: Interactive
+  url: 'www.google.com'
 - icon: github
   icon_pack: fab
   name: code
-  url: https://github.com/allisonhorst/palmerpenguins/
-- icon: newspaper
-  icon_pack: far
-  name: Blog post
-  url: https://education.rstudio.com/blog/2020/07/palmerpenguins-cran/
+  url: https://github.com/apreshill/bakeoff
 ---
 
-{{< here >}}
-
-### “Grid is the very first CSS module created specifically to solve the layout problems we've all been hacking our way around for as long as we've been making websites.”
-
-*— [Chris House, A Complete Guide to CSS Grid Layout](http://chris.house/blog/a-complete-guide-css-grid-layout/)* [^1]
-
+## [Spotify](https://www.spotify.com/us/) offers a great amount of general & specific data on artists and listeners a like. 
+![musicset](sophie.jpeg)
 ---
 
-Since I began building websites in Y2K, I've lost count how many times the phrase "...there's got to be a better way to do this" has passed my lips. Most times, while fighting with floats and widths of content and sidebars or just basically trying to get something beside something else without using a stupid `TABLE`.
+### Functional Form
 
-Well, technology sure has come a long way since slicing up images to match the table-based layout that was just created in Dreamweaver. You'd be surprised (or maybe you wouldn't) how challenging the standard header, content, sidebar, footer layout could be to actually get right.
+This theme has a **form-to-email** feature built in, thanks to the simple Formspree integration. All you need to activate the form is a valid recipient email address saved in the front matter of the form
+(`/content/forms/contact.md`). Of course, the example shown below (`your@email.here`) must not be used. Please use your actual email address.
 
-{{< figure src="css-grid-cover.png" alt="Traditional right sidebar layout" caption="A visual example of the traditional right sidebar layout" >}}
-
----
-
-### <dfn title="Ermahgerd is a humorous version of the phrase oh my god, written as though pronounced with a heavy influence of extra Rs. It's meant to imitate the sound of someone speaking through a retainer.">ERMAHGERD</dfn>
-
-A proper grid is what we always wanted, no ... _needed_ to build websites with a solid, unbreakable structure. And that's why I used it in this theme. I call this feature a "scaffold" because none of the _content_ is laid out on this grid. Only the main _structure_: consisting of the `header`, `footer`, `main`, `aside`, and `footer`. As you can tell by this quote from the [W3C](https://www.w3.org/TR/css-grid-1/) on the candidate recommendation itself, Grid is the perfect tool for the job:
-
-> ##### CSS Grid Layout Module
->
-> This CSS module defines a two-dimensional grid-based layout system, optimized for user interface design. In the grid layout model, the children of a grid container can be positioned into arbitrary slots in a predefined flexible or fixed-size layout grid.
->
-> — _W3C_
-
-CSS Grid is a total game changer, IMHO. Compared to the bottomless pit of despair that is the old way, the new way of building a site structure can be done in as little as 5 lines of CSS. Of course, it always takes more than that, but not much. I mean this is really the meat of the deal:
-
-```css
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(3, auto);
-}
+```toml
+# please replace with a valid Formspree form id or email address
+formspree_form_id: your@email.here
 ```
 
-#### What an amazing time to be a web developer. Anyway, I hope you enjoy this "feature" that you'll probably never notice or even see. Maybe that's the best part of a good user interface – the hidden stuff that just works.
+Update that file and you're ready to begin receiving submissions. Just submit
+the active form for the first time, and complete the email address verification
+step with Formspree, and your contact form is live. The next time someone
+fills it out, the submission will land in your inbox.
 
-[^1]: The original article cited here is now updated and maintained by the staff over at CSS-Tricks. Bookmark their version if you want to dive in and learn about CSS Grid: [A Complete Guide to Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
+### Multiple Layouts
+
+The files included with the theme have a contact page ready for copy/paste, or
+you can type `hugo new forms/contact.md` and you're off to the races. There are two
+layouts for `forms` – `split-right`, and `split-left` – you guessed it, one puts
+the form on the right and the other on the left. You just fill out the front
+matter, and the rest is automatic.
+
+```toml
+# layout options: split-right or split-left
+layout: split-right
+```
+
+![Contact Form Split Right Layout Screenshot](built-in-contact-form-screenshot.png)
+
+Both layouts display the page title and description opposite the form, and you
+can also choose to show your social icon links if you have those configured in
+the `config.toml` file.
+
+<iframe src="peloton_summary.html" width="672" height="400px" data-external="1"></iframe>
