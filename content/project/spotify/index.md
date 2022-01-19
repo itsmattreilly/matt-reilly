@@ -1,7 +1,7 @@
 ---
 title: "Spotify Analysis"
 subtitle: "a deepeR dive"
-excerpt: "This theme has a form-to-email feature built in, thanks to the simple Formspree integration. All you need to activate the form is a valid recipient email address saved in the form front matter."
+excerpt: "An analysis on my 2021 Spotify streaming history in R."
 date: 2022-01-19
 author: "Matt Reilly"
 draft: false
@@ -19,14 +19,14 @@ links:
   url: https://github.com/apreshill/bakeoff
 ---
 
-## [Spotify](https://www.spotify.com/us/) offers a great amount of general & specific data on artists and listeners a like. 
+## [Spotify](https://www.spotify.com/us/) offers vast amounts of data on artists and listeners alike. 
 ![musicset](sophie.jpeg)
 ---
 
-### Functional Form
+### Introduction
 
-This theme has a **form-to-email** feature built in, thanks to the simple Formspree integration. All you need to activate the form is a valid recipient email address saved in the front matter of the form
-(`/content/forms/contact.md`). Of course, the example shown below (`your@email.here`) must not be used. Please use your actual email address.
+
+#### As an avid music listener, I'm always interested in my yearly "Wrapped" listening summary. <br><br> I've decided to do a deeper analysis on this history and utilize Spotify's API to uncover insights from a different perspective. 
 
 ```toml
 # please replace with a valid Formspree form id or email address
@@ -57,4 +57,4 @@ Both layouts display the page title and description opposite the form, and you
 can also choose to show your social icon links if you have those configured in
 the `config.toml` file.
 
-<iframe src="peloton_summary.html" width="672" height="400px" data-external="1"></iframe>
+<iframe src="peloton_summary.html" width="800" height="900px" data-external="1"></iframe>
