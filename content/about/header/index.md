@@ -7,6 +7,6 @@ headline: |
 ---
 
 <!-- this is a subheadline -->
- <font size="5"> **Data Analyst** currently at Conagra Brands</font> 
+ <font size="5"> **Data Analyst** currently at Conagra Brands.</font> 
 
 I'm a recent graduate of Purdue University in Industrial Engineering. I am interested in applying data analytics & data science to solve business problems. 
