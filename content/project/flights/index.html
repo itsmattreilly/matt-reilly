@@ -1,0 +1,236 @@
+---
+title: "Flight Log Visual"
+subtitle: "a flight mappeR"
+author: "Matt Reilly"
+date: 2022-01-20
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="were-going-to-build-a-map-showcasing-the-past-flight-paths-taken." class="section level2">
+<h2>We’re going to build a map showcasing the past flight path’s taken.</h2>
+<p><img src="map.png" /></p>
+<div id="first-lets-discuss-folder-file-set-up.-well-need-3-main-files" class="section level4">
+<h4>First, let’s discuss folder &amp; file set up. We’ll need 3 main files:</h4>
+<ol style="list-style-type: decimal">
+<li>R File (.Rmd or .R)</li>
+<li>Airport IOTA Code CSV File (.csv)</li>
+<li>Custom flight excel file (.xlsx)</li>
+</ol>
+<p>
+ 
+</p>
+<p><img src="folder.png" /></p>
+A link for the <a href="https://www.kaggle.com/miquar/explore-flights-csv-airports-csv-airlines-csv/data?select=airports.csv">Airport Code CDV File</a> is provided. <em>(This only contains USA domestic airport codes. International Locations need to be manually added)</em>
+<p>
+ 
+</p>
+<p>The Custom Flight excel file will be completely user created. This should feature all of the user’s flights taken &amp; include 5 columns:</p>
+<ol style="list-style-type: decimal">
+<li>Date</li>
+<li>Origin City</li>
+<li>Destination City</li>
+<li>Origin Airport Code <em>(IATA Code)</em></li>
+<li>Destination Airport Code <em>(IATA Code)</em></li>
+</ol>
+<p>
+ 
+</p>
+</div>
+</div>
+<div id="import-and-clean-data" class="section level2">
+<h2>Import and clean data</h2>
+<p>Save all files to the same folder, in my example named “Flight Log”.
+In empty .Rmd or .R file, set working directory. Install and load the following packages into your file.</p>
+<p>Finally, load the 2 remaining files (.CSV and .xlsx) into the R file.</p>
+<p><strong>flight_log_raw</strong> is the custom flight path excel file, while <strong>airports</strong> is the airport code and information file.</p>
+<pre class="r"><code>library(openxlsx)
+library(ggplot2)
+library(maps)
+library(mapproj)
+library(tidyverse)
+library(sp)
+library(geosphere)
+library(ggrepel)
+
+flight_log_raw &lt;- read.xlsx(&#39;Flight Log Data.xlsx&#39;)
+airports &lt;- read.csv(&#39;airports.csv&#39;)</code></pre>
+</div>
+<div id="clean-date-data-imported-from-excel" class="section level2">
+<h2>Clean date data imported from Excel</h2>
+We’ll first need to modify the Date column to accurately reflect as a " date " type. Using a function from the Janitor package, <code>excel_numeric_to_date</code> function will convert excel numbers into dates. Switch the Date column in our original dataframe to be the converted date.
+<p>
+ 
+</p>
+<pre class="r"><code>flight_log_raw$Date &lt;- janitor::excel_numeric_to_date(flight_log_raw$Date)</code></pre>
+</div>
+<div id="create-dataframes-for-each-location" class="section level2">
+<h2>Create dataframes for each location</h2>
+<p>We need to clean &amp; join the airport file (containing latitudes and longitudes) to our custom flight log excel file. We’ll create 2 seperate dataframes: 1 for the origin and 1 for the destination.</p>
+<p>Using tidyverse principles, (%&gt;%), select only the IATA_CODE, LONGITUDE, and LATITUDE from the airports dataframe and rename each to indicate this is FROM the origin.</p>
+<p><em>We’ll need to create the same dataframe with different column names indication it’s TO the destionation</em></p>
+<p>This will be called <strong>airports_F</strong> <em>(F indication “From”)</em></p>
+<pre class="r"><code>airports_F &lt;- airports %&gt;%
+  select(IATA_CODE, LONGITUDE, LATITUDE) %&gt;%
+  rename(From = IATA_CODE, Longitude_F = LONGITUDE, Latitude_F = LATITUDE)</code></pre>
+<p>
+ 
+</p>
+<p>Repeat this step, creating another dataframe for the destinations. The only difference in this dataframe is the column names, these should be indicative of data going TO the destinations.</p>
+<p>This will be called <em>airports_T</em></p>
+<pre class="r"><code>airports_T &lt;- airports %&gt;%
+  select(IATA_CODE, LONGITUDE, LATITUDE) %&gt;%
+  rename(To = IATA_CODE, Longitude_T = LONGITUDE, Latitude_T = LATITUDE)</code></pre>
+</div>
+<div id="join-dataframes-to-create-full-to-from-df" class="section level2">
+<h2>Join dataframes to create full To &amp; From df</h2>
+<p>Now we need to join each newly created dataframe onto our flight log excel file, <code>flight_log_raw</code>. Using the <code>left_join()</code> function, include the flight log first and <code>airports_F</code> column second. The dataframes will merge together, combined on the column “From”.</p>
+<em>THIS IS IMPORTANT! Make sure there is a similar column name between each element of <code>left_join()</code>. This is what is used to “match” each dataframe together</em>
+<p>
+ 
+</p>
+<pre class="r"><code>flight_log_F &lt;- left_join(flight_log_raw, airports_F)
+flight_log_F_T &lt;- left_join(flight_log_F, airports_T)
+
+flight_log_F_T</code></pre>
+<pre><code>##          Date        Origin   Destination From  To Longitude_F Latitude_F
+## 1  2018-05-01       Chicago     Edinburgh  ORD EDI   -87.90446   41.97960
+## 2  2018-05-14        London       Chicago  LHR ORD    -0.45400   51.47000
+## 3  2021-04-03         Omaha       Chicago  OMA ORD   -95.89417   41.30252
+## 4  2021-04-10       Chicago         Omaha  ORD OMA   -87.90446   41.97960
+## 5  2021-05-06         Omaha       Chicago  OMA ORD   -95.89417   41.30252
+## 6  2021-05-10       Chicago         Omaha  ORD OMA   -87.90446   41.97960
+## 7  2021-07-09       Chicago San Francisco  ORD SFO   -87.90446   41.97960
+## 8  2021-07-14 San Francisco         Omaha  SFO OMA  -122.37484   37.61900
+## 9  2021-07-31         Omaha       Chicago  OMA ORD   -95.89417   41.30252
+## 10 2021-08-05       Chicago         Omaha  ORD OMA   -87.90446   41.97960
+## 11 2021-09-17         Omaha       Chicago  OMA ORD   -95.89417   41.30252
+## 12 2021-09-23       Chicago   Los Angeles  ORD LAX   -87.90446   41.97960
+## 13 2021-09-27   Los Angeles       Chicago  LAX ORD  -118.40807   33.94254
+## 14 2021-10-02       Chicago         Omaha  ORD OMA   -87.90446   41.97960
+## 15 2021-11-22        Omaha       Chicago   OMA ORD   -95.89417   41.30252
+## 16 2021-11-30       Chicago         Omaha  ORD OMA   -87.90446   41.97960
+## 17 2021-12-18         Omaha       Chicago  OMA ORD   -95.89417   41.30252
+## 18 2021-12-29       Chicago         Omaha  ORD OMA   -87.90446   41.97960
+## 19 2021-01-29         Omaha San Francisco  OMA SFO   -95.89417   41.30252
+## 20 2022-02-01 San Francisco      Honolulu  SFO HNL  -122.37484   37.61900
+## 21 2022-02-05      Honolulu San Francisco  HNL SFO  -157.92241   21.31869
+##    Longitude_T Latitude_T
+## 1     -3.37000   55.94990
+## 2    -87.90446   41.97960
+## 3    -87.90446   41.97960
+## 4    -95.89417   41.30252
+## 5    -87.90446   41.97960
+## 6    -95.89417   41.30252
+## 7   -122.37484   37.61900
+## 8    -95.89417   41.30252
+## 9    -87.90446   41.97960
+## 10   -95.89417   41.30252
+## 11   -87.90446   41.97960
+## 12  -118.40807   33.94254
+## 13   -87.90446   41.97960
+## 14   -95.89417   41.30252
+## 15   -87.90446   41.97960
+## 16   -95.89417   41.30252
+## 17   -87.90446   41.97960
+## 18   -95.89417   41.30252
+## 19  -122.37484   37.61900
+## 20  -157.92241   21.31869
+## 21  -122.37484   37.61900</code></pre>
+</div>
+<div id="find-every-unique-origin-and-destination" class="section level2">
+<h2>Find every unique origin and destination</h2>
+This step is for the labeling of our plot. Because the full flight log dataframe will contain duplicate or distinct cities in both the “Origin” and “Destination”, we need a cleaned dataframe of only distinct cities. In a similar manner as above, we’ll create 2 dataframes: 1 for the Origin, 1 for the destination.
+<p>
+ 
+</p>
+<p><em>THIS IS IMPORTANT! These dataframes will both contain the SAME column names. We will be joining by row, therefore requiring identical column naming conventions</em></p>
+<pre class="r"><code>cities_origin &lt;- flight_log_F_T %&gt;%
+  distinct(Origin, From, Longitude_F, Latitude_F) %&gt;%
+  rename(City = Origin, Airport = From, Longitude = Longitude_F, Latitude = Latitude_F)
+
+cities_dest &lt;- flight_log_F_T %&gt;%
+  distinct(Destination, To, Longitude_T, Latitude_T) %&gt;%
+  rename(City = Destination, Airport = To, Longitude = Longitude_T, Latitude = Latitude_T)
+
+cities_df &lt;- distinct(rbind(cities_origin, cities_dest))
+
+cities_df</code></pre>
+<pre><code>##            City Airport  Longitude Latitude
+## 1       Chicago     ORD  -87.90446 41.97960
+## 2        London     LHR   -0.45400 51.47000
+## 3         Omaha     OMA  -95.89417 41.30252
+## 4 San Francisco     SFO -122.37484 37.61900
+## 5   Los Angeles     LAX -118.40807 33.94254
+## 6        Omaha      OMA  -95.89417 41.30252
+## 7      Honolulu     HNL -157.92241 21.31869
+## 8     Edinburgh     EDI   -3.37000 55.94990
+## 9      Chicago      ORD  -87.90446 41.97960</code></pre>
+<p>
+ 
+</p>
+</div>
+<div id="pull-background-data-to-create-map" class="section level2">
+<h2>Pull background data to create map</h2>
+<p>Create a variable pulling the “world” mapping data. To highlight countries that have been traveled to, mutate a new column onto the “world” data including countries that have been traveled to. In my example, “USA” &amp; “UK” are the countries traveled too.</p>
+<p>The first color, <strong>“#c2e3ff”</strong>, is the HEX value of our highlighted countries. All unvisited countries will default to the 2nd color, or <strong>“lightgray”</strong> in this instance.</p>
+<pre class="r"><code>world &lt;- map_data(&quot;world&quot;)
+world &lt;- mutate(world, fill = ifelse(region %in% c(&quot;USA&quot;, &quot;UK&quot;), &quot;#c2e3ff&quot;, &quot;lightgray&quot;))</code></pre>
+</div>
+<div id="construct-the-plot" class="section level1">
+<h1>Construct the Plot</h1>
+<p>Next, we will construct the actual plot. There are 4 main “geom”-layers to create this plot:</p>
+<ol style="list-style-type: decimal">
+<li>the map <code>(geom_map())</code></li>
+<li>the points <code>(geom_point())</code></li>
+<li>the curves <code>(geom_curve())</code></li>
+<li>city labels <code>(geom_text())</code>
+<p>
+ 
+</p></li>
+</ol>
+<p>For the base map, our established <strong>world</strong> variable is the input data. Corresponding longitude and latitude are the x &amp; y axes. The fill is equivalent to the fill column in our <strong>world</strong> dataframe, established in our section above.</p>
+<p>For both the points and curve, use the full <code>flight_log_F_T</code> dataframe, with longitude and latitude as the x &amp; y axes. Ensure <em>inherent.aes</em> is FALSE for each the <strong>geom_point</strong> functions.</p>
+<p>To zoom in on a certail region, use <strong>coord_cartesian</strong> and set X &amp; Y limits corresponding to the longitudes and latitudes wanted. Finally, use our distinct cities dataframe, <strong>cities_df</strong>, as the data for text on the plot.</p>
+<p>
+ 
+</p>
+<pre class="r"><code>p &lt;- ggplot() +
+  geom_map(data = world, map = world,
+           aes(long, lat, map_id = region, fill = fill),
+           color = &quot;black&quot;, size = 0.1) + 
+  scale_fill_identity() + 
+  geom_point(data = flight_log_F_T, mapping = aes(Longitude_F, Latitude_F), inherit.aes = FALSE) + 
+  geom_point(data = flight_log_F_T, mapping = aes(Longitude_T, Latitude_T), inherit.aes = FALSE) +
+  geom_curve(data = flight_log_F_T, aes(x = flight_log_F_T$Longitude_F,
+                                        y = flight_log_F_T$Latitude_F,
+                                        xend = flight_log_F_T$Longitude_T,
+                                        yend = flight_log_F_T$Latitude_T, alpha = 0.4), 
+             angle = 80, size = 0.8) +
+  coord_cartesian(xlim = c(-150, 10), ylim = c(0, 80)) + 
+  geom_text_repel(data = cities_df, aes(Longitude, Latitude, label = City), size = 3.5) +
+  theme(axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = &quot;&quot;) + 
+  ggtitle(&quot;Flights of 2018 - 2021&quot;, subtitle = &quot;Hoping to coquer the skies more!&quot;)</code></pre>
+</div>
+<div id="the-result" class="section level1">
+<h1>The Result</h1>
+<p>
+ 
+</p>
+<center>
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+</center>
+<p>
+ 
+</p>
+<p>
+ 
+</p>
+</div>
