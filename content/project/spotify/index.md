@@ -13,10 +13,6 @@ links:
   icon_pack: fas
   name: Interactive
   url: https://itsmattreilly.github.io/spotify/spotify_summary.html
-- icon: github
-  icon_pack: fab
-  name: code
-  url: https://github.com/apreshill/bakeoff
 ---
 
 ## [Spotify](https://www.spotify.com/us/) offers vast amounts of data on artists and listeners alike. 
