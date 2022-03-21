@@ -12,31 +12,26 @@ links:
 - icon: door-open
   icon_pack: fas
   name: Interactive
-  url: https://github.com/itsmattreilly/matt-reilly/blob/main/content/project/spotify/Spotify%20ML%20Presentation%20Trial.pdf
+  url: https://itsmattreilly.github.io/spotify/spotify_summary.html
 - icon: github
   icon_pack: fab
   name: LINK
   url: https://github.com/itsmattreilly/matt-reilly/blob/main/content/project/spotify/Spotify%20ML%20Presentation%20Trial.pdf
 ---
-
 ## [Spotify](https://www.spotify.com/us/) offers vast amounts of data on artists and listeners alike. 
 ![musicset](sophie.jpeg)
 
-
-## Test
 ---
 
-### Introduction
+## Introduction
 
 
 #### As an avid music listener, I'm always interested in my yearly "Wrapped" listening summary. <br><br> I've decided to do a deeper analysis on this history and utilize Spotify's API to uncover insights from a different perspective. 
 
-```toml
-# please replace with a valid Formspree form id or email address
-formspree_form_id: your@email.here
-```
+I chose to create 2 different "mini" projects:
+  - An interactive chart on my top Spotify Artists *(Interactive)*
+  - A Unsupervised ML Analysis *(EDA & PCA)*
 
-xfun::embed_file("homework.pdf")
 
 
 
