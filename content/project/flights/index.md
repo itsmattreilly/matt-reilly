@@ -3,7 +3,7 @@ title: "Flight Log Visual"
 subtitle: "a flight mappeR"
 excerpt: "A visual guide to our aviator history."
 author: "Matt Reilly"
-date: 2022-01-20
+date: 2022-01-19
 draft: false
 tags:
   - hugo-site

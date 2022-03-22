@@ -2,7 +2,7 @@
 ## Configure page content in wide column
 title: "Hi, I'm Matt!" # leave blank to exclude
 number_featured: 1 # pulling from mainSections in config.toml
-number_categories: 3 # set to zero to exclude
+number_categories: 1 # set to zero to exclude
 show_intro: true
 intro: | 
   You can find me working within the Logistics Division at Conagra Brands as a data analyst. 

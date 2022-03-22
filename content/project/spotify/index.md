@@ -2,7 +2,7 @@
 title: "Spotify Analysis"
 subtitle: "a deepeR dive"
 excerpt: "An analysis on my 2021 Spotify streaming history in R."
-date: 2022-01-19
+date: 2022-01-20
 author: "Matt Reilly"
 draft: false
 tags:
