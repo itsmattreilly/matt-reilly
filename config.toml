@@ -78,6 +78,10 @@ enableEmoji = true
       icon_pack = "fab"
       url       = "https://github.com/itsmattreilly"
   [[params.social]]
+      icon      = "medium" # icon name without the 'fa-'
+      icon_pack = "fab"
+      url       = "https://medium.com/@itsmattreilly"
+  [[params.social]]
       icon      = "twitter" # icon name without the 'fa-'
       icon_pack = "fab"
       url       = "https://twitter.com/mattreilly22"
