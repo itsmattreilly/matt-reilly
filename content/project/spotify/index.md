@@ -16,7 +16,7 @@ links:
 - icon: github
   icon_pack: fab
   name: Link
-  url: https://github.com/itsmattreilly/matt-reilly/blob/main/content/project/spotify/Spotify%20ML%20Presentation%20Trial.pdf
+  url: https://github.com/itsmattreilly/matt-reilly/blob/main/content/project/spotify/Spotify%20ML%20Presentation.pdf
 ---
 ## [Spotify](https://www.spotify.com/us/) offers vast amounts of data on artists and listeners alike. 
 ![musicset](sophie.jpeg)
