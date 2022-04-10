@@ -7,7 +7,7 @@ date: 2022-01-19
 draft: false
 tags:
   - hugo-site
-layout: single
+layout: page
 ---
 
 
