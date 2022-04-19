@@ -16,7 +16,7 @@ links:
 - icon: door-open
   icon_pack: fas
   name: website
-  url: https://bakeoff.netlify.com/
+  url: https://medium.com/@itsmattreilly/cta-ridership-forecasting-analysis-8f55438c0c0d
 - icon: github
   icon_pack: fab
   name: Shiny App
