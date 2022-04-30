@@ -26,7 +26,7 @@ links:
 ## Introduction
 
 
-#### As an avid music listener, I'm always interested in my yearly "Wrapped" listening summary. <br><br> I've decided to do a deeper analysis on this history and utilize Spotify's API to uncover insights from a different perspective. 
+#### As an avid music listener, I'm always interested in my yearly "Wrapped" listening summary. <br> I've decided to do a deeper analysis on this history and utilize Spotify's API to uncover insights from a different perspective. 
 
 I chose to create 2 different "mini" projects:
   - An interactive chart on my top Spotify Artists *(Interactive)*
