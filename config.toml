@@ -92,7 +92,7 @@ enableEmoji = true
   [[params.social]]
       icon      = "file" # icon name without the 'fa-'
       icon_pack = "far"
-      url       = "/docs/resume.pdf"
+      url       = "/docs/resume_2022.pdf"
 
 [taxonomies]
   category = "categories"

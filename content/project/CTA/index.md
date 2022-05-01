@@ -8,9 +8,10 @@ draft: false
 tags:
   - hugo-site
 categories:
-  - Theme Features
+  - Time Series
   - R
-  - package
+  - Shiny
+  - Forecast
 layout: single
 links:
 - icon: door-open

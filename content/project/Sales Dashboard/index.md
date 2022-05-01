@@ -19,7 +19,9 @@ links:
   url: https://mattreilly.shinyapps.io/sales_dashboard_demand_app
 ---
 
+This sales dashboard displays  KPI's for a bicycle supplier with customers across the US. This predictive dashboard is built using Shiny, with a back-end powered in R. 
 
+It allows aggregation by date range, bike type, bike family, and customer. 
 
 
 

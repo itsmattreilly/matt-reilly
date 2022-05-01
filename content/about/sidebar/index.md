@@ -10,8 +10,6 @@ link_list_label: "Certificates"
 link_list:
 - name: "Google Data Analytics Certificate (2022)"
   url: https://www.coursera.org/account/accomplishments/specialization/certificate/KPAXN5WX9QFT
-- name: "Business Science Predicative Dashboard Certificate (2022)"
-  url: https://www.interaction-design.org/literature/topics/ux-design
 - name: "EBEC Python Certificate (2020)"
   url: https://engineering.purdue.edu/Engr/Academics/Undergraduate/Milestones/EBEC_Entry-Level_Python_Programming/2020/Spring/xTkS2PSeFlCHLRNqeZbOGQ.png
 ---
