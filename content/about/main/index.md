@@ -8,6 +8,8 @@ intro: |
   You can find me working within the Logistics Division at Conagra Brands as a data analyst. 
   
   I love being able to utilize the power of data to drive better business decisions & provide clearer insights.
+  
+  Outside of the office, I love traveling, all things coffee, and thrifting. 
  
 show_outro: false
 outro: |
