@@ -92,7 +92,7 @@ enableEmoji = true
   [[params.social]]
       icon      = "file" # icon name without the 'fa-'
       icon_pack = "far"
-      url       = "/docs/Reilly_2022.pdf"
+      url       = "/docs/MattReilly_Resume.pdf"
 
 [taxonomies]
   category = "categories"
@@ -113,7 +113,7 @@ enableEmoji = true
   [[menu.header]]
     name = "Resume"
     title = "Blog"
-    url = "/docs/Reilly_2022.pdf"
+    url = "/docs/MattReilly_Resume.pdf"
     weight = 2
   # Configure footer  
   [[menu.footer]]
