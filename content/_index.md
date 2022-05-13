@@ -1,6 +1,6 @@
 ---
 title: "Matt Reilly"
-subtitle: Working in the fields of logistics and data analytics.
+subtitle: Working in the fields of data analytics & logistics.
 description: Experienced in R, SQL, Python, & Excel <br>
 date: 2019-02-18T12:27:33-06:00
 images:
